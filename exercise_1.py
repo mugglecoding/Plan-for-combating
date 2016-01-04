@@ -1,13 +1,15 @@
 from bs4 import BeautifulSoup
 import requests
 
-
+headers = {
+    'User-Agent':'', #mobile device user agent from chrome
+}
 
 def get_detail(url):
-    path = requests.get(url)
+    path = requests.get(url,headers=headers)
     soup = BeautifulSoup(path.text, 'lxml')
 
-    title = soup.select('div.col_sub mainTitle > h1')
+    title = soup.select('div.col_sub mainTitle')
     count = soup.select('em#totalcount')
     time = soup.select('li.time')[0].get_text()
     price = soup.select('span.price c_f50')
