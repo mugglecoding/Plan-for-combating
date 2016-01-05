@@ -4,7 +4,7 @@ path = '/new_index.html'
 
 with open(path,'r') as f:
 
-    Soup   = BeautifulSoup(f.read(),'lxml')
+    Soup   = BeautifulSoup(f.read(), 'lxml')
     titles = Soup.select('ul > li > div.article-info > h3 > a')
     pics   = Soup.select('ul > li > img')
     descs  = Soup.select('ul > li > div.article-info > p.description')
