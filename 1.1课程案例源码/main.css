@@ -1,0 +1,151 @@
+body {
+    padding: 0 0 0 0;
+    background-color: #ffffff;
+    background-image: url(images/bg3-dark.jpg);
+    background-position: top left;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+
+.main-content {
+    width: 500px;
+    padding: 20px 20px 20px 20px;
+    border: 1px solid #dddddd;
+    border-radius:25px;
+    margin: 30px auto 0 auto;
+    background: #f1f1f1;
+    -webkit-box-shadow: 0 0 22px 0 rgba(50, 50, 50, 1);
+    -moz-box-shadow:    0 0 22px 0 rgba(50, 50, 50, 1);
+    box-shadow:         0 0 22px 0 rgba(50, 50, 50, 1);
+
+
+}
+.main-content p {
+    line-height: 26px;
+}
+.main-content h2 {
+    color: dimgray;
+}
+
+.nav {
+    padding-left: 0;
+    margin: 5px 0 20px 0;
+    text-align: center;
+}
+.nav li {
+    display: inline;
+    padding-right: 10px;
+}
+.nav li:last-child {
+    padding-right: 0;
+}
+.header {
+    padding: 10px 10px 10px 10px;
+
+}
+
+.header a {
+    color: #ffffff;
+}
+.header img {
+    display: block;
+    margin: 0 auto 0 auto;
+}
+.header h1 {
+    text-align: center;
+}
+
+.article {
+    list-style-type: none;
+    padding: 0;
+}
+.article li {
+    border: 1px solid #f6f8f8;
+    background-color: #ffffff;
+    height: 90px;
+}
+.article h3 {
+    border-bottom: 0;
+    margin-bottom: 5px;
+}
+.article a {
+    color: #37a5f0;
+    text-decoration: none;
+}
+.article img {
+    float: left;
+    padding-right: 11px;
+}
+
+.footer {
+    margin-top: 20px;
+}
+.footer p {
+    color: #aaaaaa;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+    font-style: italic;
+    text-transform: uppercase;
+}
+
+
+
+
+
+
+.post {
+    padding-bottom: 2em;
+}
+.post-title {
+    font-size: 2em;
+    color: #222;
+    margin-bottom: 0.2em;
+}
+.post-avatar {
+    border-radius: 50px;
+    float: right;
+    margin-left: 1em;
+}
+.post-description {
+    font-family: Georgia, "Cambria", serif;
+    color: #444;
+    line-height: 1.8em;
+}
+.post-meta {
+    color: #999;
+    font-size: 90%;
+    margin: 0;
+}
+
+.post-category {
+    margin: 0 0.1em;
+    padding: 0.3em 1em;
+    color: #fff;
+    background: #999;
+    font-size: 80%;
+}
+.post-category-design {
+    background: #5aba59;
+}
+.post-category-pure {
+    background: #4d85d1;
+}
+.post-category-yui {
+    background: #8156a7;
+}
+.post-category-js {
+    background: #df2d4f;
+}
+
+.post-images {
+    margin: 1em 0;
+}
+.post-image-meta {
+    margin-top: -3.5em;
+    margin-left: 1em;
+    color: #fff;
+    text-shadow: 0 1px 1px #333;
+}
