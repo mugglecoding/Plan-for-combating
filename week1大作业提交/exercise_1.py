@@ -1,84 +1,90 @@
 from bs4 import BeautifulSoup
 import requests
 
-headers = {
-    'User-Agent':'', #mobile device user agent from chrome
-}
+pages = 1
+urls = ['http://bj.58.com/pbdn/pn{}/'.format(str(i)) for i in range(pages)]
+ID = 0
 
-def get_detail(url):
-    path = requests.get(url,headers=headers)
+def get_ID():
+    global ID
+    ID += 1
+    return ID
+
+
+def get_seller(sellertag):
+    if sellertag == None:
+        return('个人')
+    else:
+        return('商家')
+
+
+def get_area(alist):
+    if  alist == []:
+        return('无数据')
+    else:
+        area_set = []
+        for a in alist:
+            a = a.get_text()
+            area_set.append(a)
+        if len(area_set) <= 1:
+            return area_set[0]
+        else:
+            return area_set[0] + '-' + area_set[1]
+
+
+def get_count(url):
+    infoid = url.split('entinfo=')[-1].split('_0')[0]
+    db = requests.get('http://jst1.58.com/counter?infoid={}'.format(str(infoid)))
+
+    text = db.text
+    items = text.split(';')
+    data = {}
+    for item in items:
+        item = item.split('=')
+        data[item[0]]=item[1]
+
+    return(data['Counter58.total'])
+
+
+def goods_detail(url):
+    path = requests.get(url)
     soup = BeautifulSoup(path.text, 'lxml')
 
     title= soup.select('div.col_sub.mainTitle > h1')[0].get_text()
-    count = soup.select('em#totalcount')
+    count = get_count(url)
     time = soup.select('li.time')[0].get_text()
     price = soup.select('span.price.c_f50')[0].get_text()
 
-    sellertag = soup.select('div.wlt_con')
-    if sellertag == None:
-        seller = '个人'
-    else:
-        seller = '商家'
+    sellers= soup.select('div.wlt_con')
+    seller = get_seller(sellers)
 
     areas = soup.select('span.c_25d > a')
-    if areas== None:
-        area = '无数据'
-    else:
-        for area in areas:
-            area = str(area.get_text())
-            area = area
-
+    area = get_area(areas)
     cate = soup.select('span.crb_i')[0].get_text()
 
+    sid = get_ID()
+
+    print('商品编号: '+str(sid))
+    print('商品类目: '+str(cate))
+    print('商品标题: '+str(title))
+    print('商品价格: '+str(price))
+    print('浏览次数: '+str(count))
+    print('卖家区域: '+str(area))
+    print('卖家类型: '+str(seller))
+    print('发帖时间: '+str(time))
+    print('------------------------------\n')
 
 
-
-    print('商品标题:'+str(title))
-    print('浏览量:'+str(count))
-    print('发帖时间:'+str(time))
-    print('价格:'+str(price))
-    print('卖家类型:'+str(seller))
-    print('区域:'+str(area))
-    print('类目:'+str(cate))
-
-    #print(title,count,time,price,seller,area,cate)
-
-url = 'http://bj.58.com/pingbandiannao/24405193223994x.shtml?psid=115102221190305411008274206&entinfo=24405193223994_0&iuType=z_2&PGTID=0d305a36-0000-10ee-8096-89fd9f25a35e&ClickID=6&adtype=3'
-get_detail(url)
-print("\n----------\n")
-url = 'http://bj.58.com/pingbandiannao/24537316835392x.shtml?psid=115102221190305411008274206&entinfo=24537316835392_0&iuType=p_0&PGTID=0d305a36-0000-10ee-8096-89fd9f25a35e&ClickID=7'
-get_detail(url)
-
-# url = 'http://bj.58.com/pbdn/?PGTID=0d305a36-0000-1408-a3f8-64bb8c054c8c&ClickID=1'
-# path = requests.get(url)
-# soup = BeautifulSoup(path.text, 'lxml')
-#
-# details = soup.select('td.t > a.t')
-# count = 0
-# for detail in details:
-#     detail = detail.get('href')
-#     count += 1
-#     print(detail,count)
-#     get_detail(detail)
-
-'''
-商品标题
-浏览量
-发帖时间
-价格
-卖家类型(个人还是商家)
-区域
-类目
-'''
+def py58(url):
+    db = requests.get(url)
+    soup = BeautifulSoup(db.text, 'lxml')
+    details = soup.select('td.t > a.t')
+    for detail in details:
+        detail = detail.get('href')
+        goods_detail(detail)
 
 
-response = requests.get("http://jst1.58.com/counter?infoid=24063001373753&userid=&uname=&sid=501336198&lid=1&px=501076998&cfpath=5,38484")
-text = response.text
+for url in urls:
+    py58(url)
 
-items = text.split(';')
-data = {}
-for item in items:
-    item = item.split('=')
-    data[item[0]]=item[1]
-
-print(data['Counter58.total'])
+print('\n*****************************************\n********    Mission Complete!    ********\n*****************************************\n')
