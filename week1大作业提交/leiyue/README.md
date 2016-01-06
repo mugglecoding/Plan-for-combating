@@ -5,9 +5,9 @@
 3. json 文件的编码处理耽误了时间，本来周日就可以提交。
 
 ## 运行
-···shell
+```shell
 scrapy crawl pbdn -o items.json -t json
-···
+```
 
 ## 结果
 可以使用 process_json.py 检查结果。
