@@ -1,0 +1,47 @@
+import io
+import sys
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='gb18030')
+
+import requests
+import time
+from bs4 import BeautifulSoup
+
+headers = {
+'User-Agent':'Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.3 (KHTML, like Gecko) Version/8.0 Mobile/12A4345d Safari/600.1.4'
+}
+
+url = 'http://m.58.com/bj/pbdn/pn'
+web_data = requests.get(url)
+soup = BeautifulSoup(web_data.text, 'lxml')
+address_1 = soup.select('body > div.body_div > div.infolst_w > ul > li > a')
+address_3 = [address_2.get('href') for address_2 in address_1]
+
+def get_page(url, data=None):
+    for address in address_3:
+        web_add = requests.get(address)
+        details = BeautifulSoup(web_add.text, 'lxml')
+        titles = details.select('body > div.body_div > div.content > div.title_area > div.left_tit > h1')
+        prices = details.select('body > div.body_div > div.content > div.good_info > p.attr_price > span.price_now')
+        views = details.select('body > div.body_div > div.content > div.good_info > div.attr_other > div > lable[id = "totalcount"] ')
+        time_1 = details.select('body > div.body_div > div.content > div.good_info > div > div.date')
+        areas = details.select('body > div.body_div > div.content > div.good_info > div > div.location > a')
+        sales = details.select('span.pcate')
+    if data==None:
+        for title, price, view, time_2, area, sale in zip(titles, prices, views, time_1, areas, sales):
+            data = {
+                'title':title.get_text(),
+                'price':price.get_text(),
+                'view':price.get_text(),
+                'time':time_2.get_text(),
+                'area':area.get_text(),
+                'sale':sales.get_text()
+                }
+            print(data)
+            time.sleep(1)
+
+def get_more_pages(start, end):
+    for one in range(start, end):
+        get_page(url+str(one))
+        time.sleep(1)
+
+get_more_pages(1,3)
