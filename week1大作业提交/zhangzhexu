@@ -1,0 +1,48 @@
+import io
+import sys
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='gb18030')
+
+import requests
+import time
+from bs4 import BeautifulSoup
+
+headers = {
+    'Host':'m.58.com',
+    'Referer':'http://m.58.com/bj/pbdn/?reform=pcfront&PGTID=0d100000-0000-1121-f41b-137aeef068b7&ClickID=6',
+    'User-Agent':'Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.3 (KHTML, like Gecko) Version/8.0 Mobile/12A4345d Safari/600.1.4',
+    'X-Requested-With':'XMLHttpRequest',
+}
+
+url = 'http://m.58.com/bj/pbdn/pn'
+
+def get_page(url, data=None):
+    web_data = requests.get(url)
+    soup = BeautifulSoup(web_data.text, 'lxml')
+    addresseses = soup.select('body > div.body_div > div.infolst_w > ul > li > a')
+
+    for addresses in addresseses:
+        dataes = {
+            'addresses':addresses.get('href')
+        }
+        for address in dataes:
+            web_add = requests.get('address')
+            details = BeautifulSoup(web_add.text, 'lxml')
+            titles = details.select('body > div.body_div > div.content > div.title_area > div.left_tit > h1')
+            prices = details.select('body > div.body_div > div.content > div.good_info > p.attr_price > span')
+
+            if data==None:
+                for title, price in zip(titles, prices):
+                    data = {
+                        'title':title.get_text(),
+                        'price':list(price.stripped_strings),
+
+                    }
+        print(data)
+
+def get_more_pages(start, end):
+    for one in range(start, end):
+        get_page(url+str(one))
+        time.sleep(1)
+
+get_more_pages(1,3)
+
