@@ -5,14 +5,10 @@ import time
 
 url = 'http://bj.58.com/pbdn/?PGTID=0d100000-0000-1121-f41b-137aeef068b7&ClickID=6'
 
-def urls(url):
-    page  = requests.get(url)
-    soup2 = BeautifulSoup(page.text,'lxml')
-    webs = soup2.select('td.t > a.t')
-    url_list = [web.get('href') for web in webs]
-    return url_list
-
-url_lists = urls(url)
+page  = requests.get(url)
+soup2 = BeautifulSoup(page.text,'lxml')
+webs = soup2.select('td.t > a.t')
+url_list = [web.get('href') for web in webs]
 
 def content(url):
     time.sleep(1)
@@ -31,6 +27,6 @@ def content(url):
         }
         print (data)
 
-for url in url_lists:
+for url in url_list:
     content(url)
 
