@@ -1,0 +1,133 @@
+body {
+  padding: 0 0 0 0;
+  background-color: #ffffff;
+  background-image: url(images/bg3-dark.jpg);
+  background-position: top left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: Helvetica, Arial, sans-serif;
+}
+.nav {
+  padding-left: 0;
+  margin: 5px 0 20px 0;
+  text-align: center;
+}
+.nav li {
+  display: inline;
+  padding-right: 10px;
+}
+.nav li:last-child {
+  padding-right: 0;
+}
+.header {
+  padding: 10px 10px 10px 10px;
+
+}
+
+.header a {
+  color: #ffffff;
+}
+.header img {
+  display: block;
+  margin: 0 auto 0 auto;
+}
+.header h1 {
+  text-align: center;
+}
+
+.main-content {
+  width: 500px;
+  padding: 20px 20px 20px 20px;
+  border: 1px solid #dddddd;
+  border-radius:15px;
+  margin: 30px auto 0 auto;
+  background: #fdffff;
+  -webkit-box-shadow: 0 0 22px 0 rgba(50, 50, 50, 1);
+  -moz-box-shadow:    0 0 22px 0 rgba(50, 50, 50, 1);
+  box-shadow:         0 0 22px 0 rgba(50, 50, 50, 1);
+
+}
+h1, h2, h3 {
+  color: #37A5F0;
+}
+h1 {
+  color: #ffffff;
+  margin: 10px 0 15px 0;
+  text-align: center;
+}
+h2 {
+  margin: 10px 0 20px 0;
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
+}
+h3 {
+  margin: 15px 0 15px 0;
+  border-bottom: 1px solid #CCCCCC;
+  padding-bottom: 3px;
+  font-size: 18px;
+  font-weight: bold;
+}
+ul {
+  padding: 0 0 0 50px;
+}
+ul li {
+  margin: 0 0 5px 0;
+}
+ol {
+  padding: 0 0 0 50px;
+}
+
+p {
+    color: #505050;
+    font-size: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+hr {
+    border:none;
+    border-top:1px solid gainsboro;
+    height:0;
+}
+
+.main-content {
+  width: 500px;
+  padding: 20px 20px 20px 20px;
+  border: 1px solid #dddddd;
+  margin: 30px auto 0 auto;
+  background: #ffffff url(images/crossword.png) top left repeat;
+}
+.main-content p {
+ line-height: 26px;
+}
+.photos {
+  list-style-type: none;
+  padding: 0;
+}
+.photos li {
+  display: inline;
+  padding-left: 11px;
+}
+.featured-image {
+  width: 500px;
+  height: 195px;
+  background: #ffffff url(images/featured-cake.png) top left no-repeat;
+}
+.featured-image h3 {
+  margin: 0;
+  background-color: #333333;
+  color: #ffffff;
+  padding: 5px 0 5px 15px;
+  text-transform: uppercase;
+}
+.footer {
+  margin-top: 20px;
+}
+.footer p {
+  color: #aaaaaa;
+  text-align: center;
+  font-weight: bold;
+  font-size: 12px;
+  font-style: italic;
+  text-transform: uppercase;
+}
