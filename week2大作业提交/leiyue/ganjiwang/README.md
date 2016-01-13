@@ -5,6 +5,7 @@
 
 1. 起始位置：http://bj.ganji.com/wu/
 2. 起始页面下面有 **二十** 个类目：
+
     ```python
     categories = [
             'jiaju', 'rirongbaihuo', 'shouji', 'shoujihaoma', 'bangong', 'nongyongpin',

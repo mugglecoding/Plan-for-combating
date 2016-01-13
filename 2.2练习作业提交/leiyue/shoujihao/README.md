@@ -1,19 +1,24 @@
 ## 使用说明
 1. 需要安装 Scrapy 爬虫框架和 Scrapy MongoDB 数据库连接组件。
+
     ```bash
     pip install -r reqirements.txt
     ```
 2. 运行 MongoDB 数据库，监听本地IP：127.0.0.1 和 端口：27017 。
 3. 在程序主目录下面运行
+
     ```bash
     scrapy crawl sjhm
     ```
 4. 抓取数据将保存在数据库 scrapy 中的 bj_58_com_shoujihao_items 的 collection 中。
 5. 可以使用 mongo.exe 检查抓取结果，比如我想知道最贵的手机号是哪个？
+
     ```
     db.bj_58_com_shoujihao_items.find().sort({'price':-1})
     ```
+
 ## 检查结果
+
 ```json
 { "_id" : ObjectId("56964e6b106a6c1978225ee0"), "price" : 500000, "carrier" : "中国电信", "link" : "http://bj.58.com/shoujihao/24663880646972x.shtml?psid=158957325190407121902605749&entinfo=24663880646972_0", "id" : NumberLong("13311111199") }
 { "_id" : ObjectId("56964f29106a6c1978226336"), "price" : 350000, "carrier" : "中国电信", "link" : "http://bj.58.com/shoujihao/24661085394997x.shtml?psid=122218894190407146582303068&entinfo=24661085394997_0", "id" : NumberLong("13311151981") }
