@@ -32,6 +32,7 @@ resp = requests.get(start_url)
 content = resp.text
 soup = BeautifulSoup(content, 'lxml')
 num=len(soup.select('td.img > a'))
+print(num)
 
 for i in range(0,num):
     href_url = soup.select('td.img > a')[i].get('href')#从目录页获取到单个商品的地址
