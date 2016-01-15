@@ -32,8 +32,7 @@ def get_links_from_channel(channel,pages,who_sells=3):
             item_link = link.get('href')
             url_list.insert_one({'url':item_link,'visited':0})
             #print item_link
-    else:
-        pass
+
     # 通用页面
     if soup.find('li','js-item'):
         for link in soup.select('ul li.js-item'):
@@ -58,7 +57,7 @@ def get_info_from_url(url):
         area.pop(0) if area.__len__()>0 else None
         date = soup.select('ul.title-info-l li i.pr-5')[0].text if soup.select('ul.title-info-l li i.pr-5')[0].text.strip().__len__()>0 else None
         item_info.insert_one({'title':title,'price':price,'type':fenlei,'area':area,'time':date})
-        #print {'title':title,'price':price,'type':type,'area':area,'time':time}
+        print {'title':title,'price':price,'type':fenlei,'area':area,'time':date}
 
-#get_links_from_channel('http://bj.ganji.com/shoujihaoma/',10)
+#get_links_from_channel('http://bj.ganji.com/taishidiannaozhengji/',2)
 #get_info_from_url('http://bj.ganji.com/taishidiannaozhengji/1070383590x.htm')

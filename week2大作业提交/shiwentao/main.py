@@ -10,14 +10,16 @@ from pages import url_list
 
 
 def get_all_links(channel):
-    for i in range(1,100):
+    for i in range(1,5):
         get_links_from_channel(channel,i)
 
 def get_info(item):
-    if item['visited'] == 0:
+    if item.get('visited') != 0:
+        pass
+    else:
         get_info_from_url(item['url'])
-        #pool.map(get_info_from_url,item['url'].split())
-        url_list.update_one({'url':item['url']},{'$set':{'visited':1}},False,False)
+        url_list.update_one({'_id':item['_id']},{'$set':{'visited':1}},False,False)
+
 
 
 if __name__ == '__main__':
@@ -25,9 +27,11 @@ if __name__ == '__main__':
     pool.map(get_all_links,channel_list.split())
     # for item in url_list.find():
     #     items = []
+    #     print item
     #     items.append(item)
     #     pool.map(get_info,items)
     for item in url_list.find():
+        #print item
         pool.apply_async(get_info,(item,))
     pool.close()
     pool.join()
