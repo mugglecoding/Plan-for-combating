@@ -6,10 +6,9 @@ from pybloom import BloomFilter
 import os
 import re
 import random
-from threading import Thread,Lock
-
 import socket
 
+from threading import Thread,Lock
 from multiprocessing import Pool
 
 client = pymongo.MongoClient('localhost', 27017)
