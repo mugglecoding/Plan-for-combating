@@ -37,6 +37,7 @@ while(len(crawl_list) < limit_count):
         href_tag = info_tag.select('.resule_img_a')[0]
         info_url = href_tag.get('href')
         if len(crawl_list) < limit_count:
+            crawl_list.append(info_url)
             parse_info(info_url)
         else:
             break
