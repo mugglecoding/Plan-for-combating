@@ -1,0 +1,128 @@
+#channel_get.py
+from bs4 import BeautifulSoup
+import requests
+start_url='http://bj.ganji.com/wu/'
+url_host='http://bj.ganji.com'
+def get_channel_urls(url):
+    wb_data=requests.get(start_url)
+    soup=BeautifulSoup(wb_data.text,'lxml')
+    links=soup.select('dl > dt > a')
+    for link in links:
+        page_url = url_host + link.get('href')
+        print(page_url)
+
+get_channel_urls(start_url)
+channel_list ='''
+http://bj.ganji.com/shouji/
+http://bj.ganji.com/shoujipeijian/
+http://bj.ganji.com/bijibendiannao/
+http://bj.ganji.com/taishidiannaozhengji/
+http://bj.ganji.com/diannaoyingjian/
+http://bj.ganji.com/wangluoshebei/
+http://bj.ganji.com/shumaxiangji/
+http://bj.ganji.com/youxiji/
+http://bj.ganji.com/xuniwupin/
+http://bj.ganji.com/jiaju/
+http://bj.ganji.com/jiadian/
+http://bj.ganji.com/zixingchemaimai/
+http://bj.ganji.com/rirongbaihuo/
+http://bj.ganji.com/yingyouyunfu/
+http://bj.ganji.com/fushixiaobaxuemao/
+http://bj.ganji.com/meironghuazhuang/
+http://bj.ganji.com/yundongqicai/
+http://bj.ganji.com/yueqi/
+http://bj.ganji.com/tushu/
+http://bj.ganji.com/bangongjiaju/
+http://bj.ganji.com/wujingongju/
+http://bj.ganji.com/nongyongpin/
+http://bj.ganji.com/xianzhilipin/
+http://bj.ganji.com/shoucangpin/
+http://bj.ganji.com/baojianpin/
+http://bj.ganji.com/laonianyongpin/
+http://bj.ganji.com/gou/
+http://bj.ganji.com/qitaxiaochong/
+http://bj.ganji.com/xiaofeika/
+http://bj.ganji.com/menpiao/
+http://bj.ganji.com/jiaju/
+http://bj.ganji.com/rirongbaihuo/
+http://bj.ganji.com/shouji/
+http://bj.ganji.com/shoujihaoma/
+http://bj.ganji.com/bangong/
+http://bj.ganji.com/nongyongpin/
+http://bj.ganji.com/jiadian/
+http://bj.ganji.com/ershoubijibendiannao/
+http://bj.ganji.com/ruanjiantushu/
+http://bj.ganji.com/yingyouyunfu/
+http://bj.ganji.com/diannao/
+http://bj.ganji.com/xianzhilipin/
+http://bj.ganji.com/fushixiaobaxuemao/
+http://bj.ganji.com/meironghuazhuang/
+http://bj.ganji.com/shuma/
+http://bj.ganji.com/laonianyongpin/
+http://bj.ganji.com/xuniwupin/
+http://bj.ganji.com/qitawupin/
+http://bj.ganji.com/ershoufree/
+http://bj.ganji.com/wupinjiaohuan/
+'''
+
+#page_parsing.py
+from bs4 import BeautifulSoup
+import requests
+import time
+import pymongo
+
+client = pymongo.MongoClient('localhost',27017)
+ganji = client['ganji']
+url_list = ganji['url_link']#spider1爬取的结果
+item_info = ganji['item_info']#spider2爬取的结果
+
+#spider1:抓取每个channel下卖家类型是个人的，单页的所有商品的链接
+def get_links_from(channel,pages,who_sells=1):#抓取channel下卖家类型是个人的，单页的所有商品的链接
+    list_view = '{}a{}o{}/'.format(channel,str(who_sells),str(pages))
+    wb_data = requests.get(list_view)
+    time.sleep(1)
+    soup = BeautifulSoup(wb_data.text,'lxml')
+    for link in soup.select('#wrapper > div.leftBox > div.layoutlist > dl > dd.feature > div > ul > li > a'):
+        item_link = link.get('href')
+        url_list.insert_one({'url':item_link})
+        print(item_link)
+    else:
+        pass
+
+#spider2:抓取商品详情页的商品详细信息
+def get_item_info(url):#这里的URL是一个商品详情页的URL，也就是spider1中抓到的随便哪一个链接
+    wb_data=requests.get(url)
+    soup=BeautifulSoup(wb_data.text,'lxml')
+    title = soup.select('div > div > h1')[0].text
+    date=list(soup.select('i.pr-5')[0].stripped_strings)
+    price=soup.select('i.f22.fc-orange.f-type')[0].text
+    area=soup.select('div > ul.det-infor > li > a')[2].text
+    item_type=soup.select('ul.det-infor > li > span > a')[0].text
+    item_info.insert_one({'title':title,'price':price,'date':date,'area':area,'item_type':item_type})
+    print({'title':title,'price':price,'date':date,'area':area,'item_type':item_type})
+
+#main.py
+from multiprocessing import Pool
+from channel_get import channel_list
+from page_parsing import get_links_from
+from page_parsing import get_item_info
+
+def get_all_links_from(channel):
+    for num in range(1,101):
+        get_links_from(channel,num)
+
+def get_all_item_info_from():
+    for url in url_list.find():
+        get_item_info(url)
+
+if __name__ == '__main__':
+    pool = Pool()
+    pool.map(get_all_links_from,channel_list.split())
+    
+#counts.py
+import time
+from page_parsing import url_list
+
+while True:
+    print(url_list.find().count())
+    time.sleep(5)
