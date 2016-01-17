@@ -1,0 +1,94 @@
+from bs4 import BeautifulSoup
+import requests
+import time
+import pymongo
+from multiprocessing import Pool
+
+channel_list = '''
+http://bj.ganji.com/jiaju/
+http://bj.ganji.com/rirongbaihuo/
+http://bj.ganji.com/shouji/
+http://bj.ganji.com/shoujihaoma/
+http://bj.ganji.com/bangong/
+http://bj.ganji.com/nongyongpin/
+http://bj.ganji.com/jiadian/
+http://bj.ganji.com/ershoubijibendiannao/
+http://bj.ganji.com/ruanjiantushu/
+http://bj.ganji.com/yingyouyunfu/
+http://bj.ganji.com/diannao/
+http://bj.ganji.com/xianzhilipin/
+http://bj.ganji.com/fushixiaobaxuemao/
+http://bj.ganji.com/meironghuazhuang/
+http://bj.ganji.com/shuma/
+http://bj.ganji.com/laonianyongpin/
+http://bj.ganji.com/xuniwupin/
+http://bj.ganji.com/qitawupin/
+http://bj.ganji.com/ershoufree/
+http://bj.ganji.com/wupinjiaohuan/
+'''
+
+client = pymongo.MongoClient('localhost', 27017)
+homework = client['homework']
+item_url_list = homework['item_url_list']
+item_info = homework['item_info']
+
+#spider1,get item url list
+def get_item_url_from(channel,pages,who_sells='a2'):
+     channel_url='{}{}o{}/'.format(channel,who_sells,str(pages))
+     time.sleep(2)
+     #http://bj.ganji.com/jiaju/a2o2/  shangjia
+     #http://bj.ganji.com/jiaju/o2/    gerena
+     wb_data = requests.get(channel_url)
+     wb_data.encoding = 'utf8'
+     soup = BeautifulSoup(wb_data.text,'lxml')
+     item_urls = soup.select('li.js-item a.ft-tit')
+     for url in item_urls:
+         item_url=url.get('href')
+         #get_item_info_from(item_url)
+         print(item_url)
+         item_url_list.insert_one({'url':item_url})
+
+
+#spder2,get items'ioformation
+
+
+#item_link_example='http://bj.ganji.com/jiaju/2064836897x.htm'
+def get_item_info_from(item_link):
+    wb_data = requests.get(item_link)
+    soup = BeautifulSoup(wb_data.text, 'lxml')
+    no_longer_exist = soup.find_all('div.error-tips1')
+    if no_longer_exist:
+        pass
+    else:
+        title=soup.select('h1.title-name')[0].text
+        date = None if soup.select('i.pr-5')[0].text.split() == [] else soup.select('i.pr-5')[0].text.split()[0]
+        type=soup.select(' ul.det-infor > li:nth-of-type(1) > span > a')[0].text
+        price=soup.select('i.f22')[0].text
+        place=list(soup.select('div  ul.det-infor li:nth-of-type(3) ')[0].stripped_strings)
+        print(title,date,type,price,place,item_link)
+        item_info.insert_one({'title': title, 'price': price, 'date': date, 'place': place, 'type':type, 'url': item_link})
+
+#get_item_url_from('http://bj.ganji.com/jiaju/',2,'')
+
+def get_all_links_from(channel):
+    for i in range(1,100):
+        get_item_url_from(channel,i,'')
+
+def get_all_item_info():
+    for item in item_url_list.find():
+        get_item_info_from(item['url'])
+
+# get_all_links_from('http://bj.ganji.com/jiaju/')
+# get_all_item_info()
+
+if __name__ == '__main__':
+    pool = Pool()
+    # pool = Pool(processes=6)a
+    pool.map(get_all_links_from,channel_list.split())
+
+get_all_item_info()
+
+'''
+item_url_list.remove()
+item_info.remove()
+'''
