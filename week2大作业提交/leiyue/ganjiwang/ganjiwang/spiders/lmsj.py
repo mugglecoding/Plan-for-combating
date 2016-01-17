@@ -19,9 +19,16 @@ class LmsjSpider(CrawlSpider):
         'xianzhilipin', 'fushixiaobaxuemao', 'meironghuazhuang', 'shuma', 'laonianyongpin',
         'xuniwupin', 'qitawupin', 'ershoufree', 'wupinjiaohuan',
     ]
-    #categories = ['jiaju']
+    # categories = ['jiaju']
     allow_rules = [r'/%s/' % category for category in categories]
-    start_urls = ['http://bj.ganji.com/%s/' % category for category in categories]
+
+    @staticmethod
+    def generator(self, categories):
+        for category in categories:
+            yield 'http://bj.ganji.com/%s/' % category
+            yield 'http://bj.ganji.com/%s/a2/' % category
+
+    start_urls = list(generator(categories))
 
     rules = [
         Rule(LinkExtractor(
