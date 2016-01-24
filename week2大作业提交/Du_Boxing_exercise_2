@@ -1,0 +1,117 @@
+#实在提交不上 只能先复制到一个文件里
+#文件1   get_classes_urls.py
+from bs4 import BeautifulSoup
+import requests
+
+# start_url = 'http://bj.ganji.com/wu/'
+#
+# def get_classes_urls(default_url, url_host='http://bj.ganji.com'):  # 定义获取分类的链接
+#     class_link_lists = []  # 定义抓取到的链接尾部列表为空
+#     web_data = requests.get(default_url)  # requests首页
+#     web_data.encoding = 'utf8'  # 根据首页上看到的编码格式，将request到的内容转为utf-8。
+#     soup = BeautifulSoup(web_data.text, 'lxml')  # 美汤解析网站
+#     url_lists = soup.select('div > div > div > dl > dt > a')  # 抓取类链接所在区块
+#     for url_list in url_lists:
+#         class_link_lists.append(url_list.get('href'))  # 解析出链接
+#     class_link_lists.remove('/shoujihaoma/')  # 移除手机号码
+#     class_link_lists.remove('/ershoufree/')  # 移除赠送
+#     class_link_lists.remove('/qitawupin/')  # 移除其他物品
+#     class_link_lists.remove('/wupinjiaohuan/')  # 移除其他物品
+#     for class_link_list in class_link_lists:
+#         class_urls = url_host + class_link_list  # 生成最终需要的链接
+#         # print(class_urls)  # 返回所有地址（类型list）
+#
+#
+# get_classes_urls(start_url)
+class_list = '''
+http://bj.ganji.com/jiaju/
+http://bj.ganji.com/rirongbaihuo/
+http://bj.ganji.com/shouji/
+http://bj.ganji.com/bangong/
+http://bj.ganji.com/nongyongpin/
+http://bj.ganji.com/jiadian/
+http://bj.ganji.com/ershoubijibendiannao/
+http://bj.ganji.com/ruanjiantushu/
+http://bj.ganji.com/yingyouyunfu/
+http://bj.ganji.com/diannao/
+http://bj.ganji.com/xianzhilipin/
+http://bj.ganji.com/fushixiaobaxuemao/
+http://bj.ganji.com/meironghuazhuang/
+http://bj.ganji.com/shuma/
+http://bj.ganji.com/laonianyongpin/
+http://bj.ganji.com/xuniwupin/
+'''
+#文件1结束
+
+#文件2 main_spiders.py
+from bs4 import BeautifulSoup
+import time
+import requests
+import pymongo
+
+client = pymongo.MongoClient('localhost', 27017)
+db = client['db']
+item_info = db['item_info']
+
+
+def main_spider(default_url):  # 定义主爬虫
+
+    for page_num in range(1, 59):
+        class_pages_list = default_url + 'a3o{}'.format(page_num)
+        # print(class_pages_list)
+        web_data = requests.get(class_pages_list)
+        time.sleep(2)
+        soup = BeautifulSoup(web_data.text, 'lxml')
+        devide_url_lists = soup.select('div.leftBox > div.layoutlist > dl > dd.feature > div > ul > li > a')
+        for devide_url_list in devide_url_lists:
+            try:
+                url_total_data = devide_url_list.get('href')
+                web_data_detail = requests.get(url_total_data)
+                web_data.encoding = 'utf8'
+                soup_detail = BeautifulSoup(web_data_detail.text, 'lxml')
+            except:
+                pass
+            try:
+                title = soup_detail.select('div.content.clearfix > div.leftBox > div.col-cont.title-box > h1')[0].text
+                date = soup_detail.select(' ul.title-info-l.clearfix > li:nth-of-type(1) > i')[0].text.strip().replace(
+                    '发布',
+                    '')
+                type = soup_detail.select(
+                    'div.content.clearfix > div.leftBox > div:nth-of-type(3) > div > ul > li:nth-of-type(1) > span > a')[
+                    0].text  # if soup.find_all('类　　型：') else None
+                price = soup_detail.select(
+                    'div.content.clearfix > div.leftBox > div:nth-of-type(3) > div > ul > li:nth-of-type(2) > i.f22.fc-orange.f-type')[
+                    0].text
+                place = ' '.join(soup_detail.select(
+                    'div.content.clearfix > div.leftBox > div:nth-of-type(3) > div > ul > li:nth-of-type(3)')[
+                                     0].text.replace('交易地点：  ', '').split())
+                item_info.insert_one({'title': title, 'date': date, 'type': type, 'price': price, 'place': place})
+                print({'title': title, 'date': date, 'type': type, 'price': price, 'place': place})
+            except:
+                pass
+                # time.sleep(2)
+
+# main_spider('http://bj.ganji.com/wu/')
+#文件2结束
+
+#文件3 data_count.py
+import time
+from main_spiders import item_info
+
+while True:
+    print(item_info.find().count())
+    time.sleep(5)
+#文件3结束
+
+
+#文件4 pools.py
+from multiprocessing import Pool
+from main_spiders import main_spider
+from get_classes_urls import class_list
+
+if __name__ == '__main__':
+    pool = Pool()
+    pool.map(main_spider,class_list.split())
+
+
+#文件4结束

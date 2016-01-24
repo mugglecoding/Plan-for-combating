@@ -1,3 +1,19 @@
+<<<<<<< HEAD
+
+.idea/.name
+
+.idea/encodings.xml
+
+.idea/misc.xml
+
+.idea/modules.xml
+
+.idea/vcs.xml
+
+.idea/workspace.xml
+
+.idea/Plan-for-combating.iml
+=======
 ### Example user template template
 ### Example user template
 
@@ -65,3 +81,4 @@ docs/_build/
 # PyBuilder
 target/
 
+>>>>>>> mugglecoding/master
