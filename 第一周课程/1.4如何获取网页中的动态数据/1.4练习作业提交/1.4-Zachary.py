@@ -13,7 +13,7 @@ number = 0
 page = 0
 
 headers = {
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36',
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.111 Safari/537.36',
 }
 
 
@@ -30,4 +30,4 @@ while number == page:
         }
         print(number, data)
     page += 20
-    time.sleep(2)
+

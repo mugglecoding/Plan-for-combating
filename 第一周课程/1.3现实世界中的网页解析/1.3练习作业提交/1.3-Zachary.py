@@ -105,7 +105,7 @@ number_limit = 301
 page = 1
 headers = {
     'Content-Type':'text/html; charset=utf-8',
-    'User_Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36',
+    'User_Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.111 Safari/537.36',
 }
 
 def get_info(url, headers, data=None):
