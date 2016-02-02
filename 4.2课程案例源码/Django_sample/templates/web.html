@@ -1,0 +1,55 @@
+{% load static %}
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/new_blah2.css' %}">
+</head>
+<body>
+    <div class="header">
+        <img src="{% static 'images/blah.png' %}">
+        <ul class="nav">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Site</a></li>
+            <li><a href="#">Other</a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <h2>Article</h2>
+        <ul class="articles">
+            {% for arti in ArtiInfo %}
+                <li>
+{#                    <img src="{% static 'images/0001.jpg' %}" width="100" height="91">#}
+                    <div class="article-info">
+                        <h3><a href="#">{{ arti.title }}</a></h3>
+                        <p class="meta-info">
+                            {% for meta in arti.tags %}
+                                <span class="meta-cate">{{ meta }}</span>
+                            {% endfor %}
+                        </p>
+                        <p class="description">{{ arti.des }}</p>
+                    </div>
+                    <div class="rate">
+                        <span class="rate-score">{{ arti.scores }}</span>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="main-content-pagitor">
+            {% if ArtiInfo.has_previous %}
+                <a  href="?page={{ ArtiInfo.previous_page_number }}" > < Pre </a>
+            {% endif %}
+
+            <span>
+                Page {{ ArtiInfo.number }} of {{ ArtiInfo.paginator.num_pages }}.
+            </span>
+
+            {% if ArtiInfo.has_next %}
+                <a href="?page={{ ArtiInfo.next_page_number }}" > Next ></a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; Mugglecoding</p>
+    </div>
+</body>
+</html>
+{#                <img src="{% static 'images/0002.jpg' %}" width="100" height="91">#}
