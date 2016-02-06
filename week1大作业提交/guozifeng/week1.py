@@ -36,6 +36,5 @@ def parsing_data(number=0):
                 '浏览量':get_page_views(url)
             }
             print(data)
-
-
+            
 parsing_data()
