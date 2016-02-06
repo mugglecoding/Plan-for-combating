@@ -25,3 +25,4 @@ while True:
             print(data)
     else:
         break
+    
