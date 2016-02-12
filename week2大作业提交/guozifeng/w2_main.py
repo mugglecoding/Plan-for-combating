@@ -1,7 +1,13 @@
 #coding = utf-8
 from multiprocessing import Pool
 from link_extraction import link_list #导入类目函数
-from web_page_parsing import get_links_from,get_item_info,url_list #导入获取链接和获取页面详情模块和数据库
+from web_page_parsing import get_links_from,get_item_info,url_list,item_info #导入获取链接和获取页面详情模块和数据库
+
+# db_urls = [item['url'] for item in url_list.find()]
+# index_urls = [item['url'] for item in item_info.find()]
+# x = set(db_urls)
+# y = set(index_urls)
+# rest_of_urls = x-y
 
 def get_all_links_from(link):
     for num in range(1,101):

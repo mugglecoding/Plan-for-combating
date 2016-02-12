@@ -16,7 +16,6 @@ def get_link_urls(url):
 link_list = '''
     http://bj.ganji.com/jiaju/
     http://bj.ganji.com/rirongbaihuo/
-    http://bj.ganji.com/shouji/
     http://bj.ganji.com/shoujihaoma/
     http://bj.ganji.com/bangong/
     http://bj.ganji.com/nongyongpin/
