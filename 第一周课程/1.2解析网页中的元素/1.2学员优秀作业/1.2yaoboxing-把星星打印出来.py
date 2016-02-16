@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import string
 
-with open('Desktop/12/index.html', 'r') as web_data:
+with open('index.html', 'r') as web_data:
     soup = BeautifulSoup(web_data, 'lxml')
     titles = soup.select(
         'body > div > div > div.col-md-9 > div > div > div > div.caption > h4 > a ')
