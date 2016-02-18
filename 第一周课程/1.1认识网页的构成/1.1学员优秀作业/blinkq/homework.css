@@ -104,6 +104,7 @@ hr {
 .photos {
   list-style-type: none;
   padding: 0;
+  font-size: 0px;
 }
 .photos li {
   display: inline;
