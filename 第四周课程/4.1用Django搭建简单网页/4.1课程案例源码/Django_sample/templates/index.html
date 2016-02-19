@@ -1,0 +1,81 @@
+{% load static %}
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/new_blah.css' %}">
+</head>
+<body>
+    <div class="header">
+        <img src="{% static 'images/blah.png' %}">
+        <ul class="nav">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Site</a></li>
+            <li><a href="#">Other</a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <h2>Article</h2>
+        <ul class="articles">
+            <li>
+                <img src="{% static 'images/0001.jpg' %}" width="100" height="91">
+                <div class="article-info">
+                    <h3><a href="#">The blah</a></h3>
+                    <p class="meta-info">
+                        <span class="meta-cate">fun</span>
+                        <span class="meta-cate">Wow</span>
+                    </p>
+                    <p class="description">Just say something.</p>
+                </div>
+                <div class="rate">
+                    <span class="rate-score">4.5</span>
+                </div>
+            </li>
+            <li>
+                <img src="{% static 'images/0002.jpg' %}" width="100" height="91">
+                <div class="article-info">
+                    <h3><a href="#">The blah</a></h3>
+                    <p class="meta-info">
+                        <span class="meta-cate">butt</span>
+                        <span class="meta-cate">NSFW</span>
+                    </p>
+                    <p class="description">Just say something.</p>
+                </div>
+                <div class="rate">
+                    <img src="{% static 'images/Fire.png' %}" width="18" height="18">
+                    <span class="rate-score">5.0</span>
+                </div>
+            </li>
+            <li>
+                <img src="{% static 'images/0003.jpg' %}" width="100" height="91">
+                <div class="article-info">
+                    <h3><a href="#">The blah</a></h3>
+                    <p class="meta-info">
+                        <span class="meta-cate">sea</span>
+                    </p>
+                    <p class="description">Just say something.</p>
+                </div>
+                <div class="rate">
+                    <span class="rate-score">3.5</span>
+                </div>
+            </li>
+            <li>
+                <img src="{% static 'images/0004.jpg' %}" width="100" height="91">
+                <div class="article-info">
+                    <h3><a href="#">The blah</a></h3>
+                    <p class="meta-info">
+                        <span class="meta-cate">bay</span>
+                        <span class="meta-cate">boat</span>
+                        <span class="meta-cate">beach</span>
+                    </p>
+                    <p class="description">Just say something.</p>
+                </div>
+                <div class="rate">
+                    <span class="rate-score">3.0</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="footer">
+        <p>&copy; Mugglecoding</p>
+    </div>
+</body>
+</html>

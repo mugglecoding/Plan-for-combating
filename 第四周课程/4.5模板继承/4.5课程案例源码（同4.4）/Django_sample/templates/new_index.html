@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="{% static 'css/semantic.css' %}" >
+  </head>
+  <body>
+    <div class="ui left thin sidebar inverted vertical menu">
+      <div class="item">
+        <img src="{% static 'images/logo.png' %}"/>
+      </div>
+      <div class="item">
+        Doucuments
+        <i class="browser icon"></i>
+      </div>
+      <div class="item">
+        Charts
+        <i class="bar chart icon"></i>
+      </div>
+      <div class="item">
+        Others
+        <i class="idea icon"></i>
+      </div>
+    </div>
+      <div class="pusher">
+        <div class="ui fixed menu">
+          <div class="header item" id="menu">
+            <i class="content icon"></i>
+            Menu
+          </div>
+          <div class="item">data analysis</div>
+          <div class="item">The lab</div>
+          <div class="item">date</div>
+        </div>
+        <div class="ui container" style="margin:70px 0 0 0">
+          <div class="ui divided items">
+              {% for item in ArtiInfo %}
+
+            <div class="item">
+              <div class="content">
+                <a class="header">title</a>
+                <div class="meta">
+                  <span class="ui label">span 1 </span>
+                  <span class="ui label">span 2 </span>
+                </div>
+                <div class="description">Say something</div>
+              </div>
+            </div>
+            <div class="item">
+              <div class="content">
+                <a class="header">title</a>
+                <div class="meta">
+                  <span class="ui label">span 1 </span>
+                  <span class="ui label">span 2 </span>
+                </div>
+                <div class="description">Say something</div>
+              </div>
+            </div>
+            <div class="item">
+              <div class="content">
+                <a class="header">title</a>
+                <div class="meta">
+                  <span class="ui label">span 1 </span>
+                  <span class="ui label">span 2 </span>
+                </div>
+                <div class="description">Say something</div>
+              </div>
+            </div>
+
+        </div>
+      <div class="ui small pagination menu">
+        <a class="icon item">
+          <i class="left arrow icon"></i>
+        </a>
+        <div class="disabled item">
+          1 of 23
+        </div>
+        <a class="icon item">
+          <i class="right arrow icon"></i>
+        </a>
+      </div>
+    </div>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/semantic.js' %}"></script>
+    <!-- <script>
+      $('.ui.sidebar').sidebar('is visible')
+    </script> -->
+    <script>
+      $('#menu').click(function () {
+        $('.ui.sidebar').sidebar('toggle');
+      });
+    </script>
+  </body>
+</html>

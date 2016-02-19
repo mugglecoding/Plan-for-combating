@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="{% static 'css/semantic.css' %}" >
+  </head>
+  <body>
+    <div class="ui visible left thin sidebar inverted vertical menu">
+      <div class="item">
+        <img src="{% static 'images/logo2.png' %}"/>
+      </div>
+      <div class="item">
+        Doucuments
+        <i class="browser icon"></i>
+      </div>
+      <div class="item">
+        Charts
+        <i class="bar chart icon"></i>
+      </div>
+      <div class="item">
+        Others
+        <i class="idea icon"></i>
+      </div>
+    </div>
+      <div class="pusher">
+        <div class="ui top attached menu">
+          <div class="header item" id="menu">
+            <i class="content icon"></i>
+            Menu
+          </div>
+          <div class="item">data analysis</div>
+          <div class="item">The lab</div>
+          <div class="item">data</div>
+        </div>
+        <div class="ui text container segment" style="margin:70px 0 0 0">
+            <div id="container" style="height: 100%; width: 100%;"></div>
+        </div>
+
+    </div>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/semantic.js' %}"></script>
+    <script src="{% static 'js/highcharts.js' %}"></script>
+    <script src="{% static  'js/highcharts-more.js' %}"></script>
+    <script src="{% static  'js/exporting.js' %}"></script>
+
+    <script>
+      $('.ui.sidebar').sidebar('is visible')
+    </script>
+
+    <script>
+        $(function () {
+    $('#container').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        credits:{
+            enabled:false
+        },
+        title: {
+            text: 'Fruit Consumption'
+        },
+        xAxis: {
+            categories: ['Apples', 'Bananas', 'Oranges']
+        },
+        yAxis: {
+            title: {
+                text: 'Fruit eaten'
+            }
+        },
+        series: [{
+            name: 'Jane',
+            data: {{ abs }}
+        }, {
+            name: 'John',
+            data: [5, 7, 3]
+        }]
+    });
+});
+    </script>
+{#    <script>#}
+{#      $('#menu').click(function () {#}
+{#        $('.ui.sidebar').sidebar('toggle');#}
+{#      });#}
+{#    </script>#}
+  </body>
+</html>

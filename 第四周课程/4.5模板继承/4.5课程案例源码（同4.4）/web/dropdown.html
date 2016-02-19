@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>
+      Do not put label here!
+    </title>
+    <link rel="stylesheet" href="css/semantic.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/semantic.js"></script>
+    <script src="js/highcharts.js"></script>
+    <script src="js/highcharts-more.js"></script>
+    <script src="js/exporting.js"></script>
+  </head>
+
+  <body>
+    <div class="ui thin visible left sidebar inverted vertical menu">
+      <div class="header item">
+        <img src="images/logo2.png">
+      </div>
+      <div class="item">
+        Doucument
+        <i class="browser icon"></i>
+      </div>
+      <div class="item">
+        Charts
+        <i class="bar chart icon"></i>
+      </div>
+      <div class="item">
+        Others
+        <i class="idea icon"></i>
+      </div>
+    </div>
+
+    <div class="pusher">
+      <div class="ui menu">
+        <div class="header item" id="menu">
+          Menu
+          <i class="content icon"></i>
+        </div>
+        <div class="item">
+          About us
+        </div>
+        <div class="item">
+          Location
+        </div>
+        <div class="item">
+          Others
+        </div>
+      </div>
+      <div class="ui equal width grid" style="margin:5px 0 5px 0;width:70%" >
+        <div class="row">
+          <div class="column">
+            <div class="ui container segment" >
+              <div class="ui compact menu">
+                <div class="ui simple dropdown item">
+                  Area
+                  <i class="dropdown icon"></i>
+                  <div class="menu">
+                    <div class="item" id="CY">朝阳</div>
+                    <div class="item" id="HD">海淀</div>
+                    <div class="item" id="TZ">通州</div>
+                  </div>
+                </div>
+              </div>
+              <div class="ui container" id="chart" style="height:400px"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <script>
+      $('#menu').click(function () {
+        $('.ui.sidebar').sidebar('toggle');
+      });
+      </script>
+    <script>
+      $('#TZ').click(function () {
+        $('#chart').highcharts({
+          title: {
+            text: 'Monthly Average Temperature'
+          },
+          subtitle: {
+            text: 'Source: WorldClimate.com'
+          },
+          xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+          },
+          yAxis: {
+            title: {
+              text: 'Temperature (°C)'
+            },
+            plotLines: [{
+              value: 0,
+              width: 1,
+              color: '#808080'
+            }]
+          },
+          tooltip: {
+            valueSuffix: '°C'
+          },
+          legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+          },
+          series: [{
+            name: 'Tokyo',
+            data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+          }]
+        });
+      });
+    </script>
+    <script>
+      $('#HD').click(function () {
+        $('#chart').highcharts({
+          title: {
+            text: 'Monthly Average Temperature',
+            x: -20 //center
+          },
+          subtitle: {
+            text: 'Source: WorldClimate.com',
+            x: -20
+          },
+          xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+          },
+          yAxis: {
+            title: {
+              text: 'Temperature (°C)'
+            },
+            plotLines: [{
+              value: 0,
+              width: 1,
+              color: '#808080'
+            }]
+          },
+          tooltip: {
+            valueSuffix: '°C'
+          },
+          legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+          },
+          series: [{
+            name: 'Tokyo',
+            data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+          }]
+        });
+      });
+    </script>
+    <script>
+      $('#CY').click(function () {
+        $('#chart').highcharts({
+          title: {
+            text: 'Monthly Average Temperature',
+            x: -20 //center
+          },
+          subtitle: {
+            text: 'Source: WorldClimate.com',
+            x: -20
+          },
+          xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+          },
+          yAxis: {
+            title: {
+              text: 'Temperature (°C)'
+            },
+            plotLines: [{
+              value: 0,
+              width: 1,
+              color: '#808080'
+            }]
+          },
+          tooltip: {
+            valueSuffix: '°C'
+          },
+          legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+          },
+          series: [{
+            name: 'Tokyo',
+            data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+          }]
+        });
+      });
+    </script>
+
+  </body>
+</html>

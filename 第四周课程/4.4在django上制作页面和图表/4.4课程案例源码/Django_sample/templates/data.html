@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block pusher %}
+<div class="pusher">
+  <div class="ui menu">
+    <div class="header item" id="menu">
+      Menu
+      <i class="content icon"></i>
+    </div>
+    <div class="item">
+      About us
+    </div>
+    <div class="item">
+      Location
+    </div>
+    <div class="item">
+      Others
+    </div>
+  </div>
+  <div class="ui equal width grid" style="margin:5px 0 5px 0;width:70%" >
+    <div class="row">
+      <div class="column">
+        <div class="ui red segment">
+          <div class="ui statistic">
+            <div class="value">
+              {{ counts }}
+            </div>
+            <div class="label">
+              documents
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="ui blue segment">
+          <div class="ui statistic">
+            <div class="value">
+                1234
+            </div>
+            <div class="label">
+              counts
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="column">
+        <div class="ui container segment">
+          <div class="ui divided items">
+            {% for item in ArtiInfo %}
+            <div class="item">
+              <div class="content">
+                <a class="header">
+                  {{ item.title }}
+                </a>
+                <div class="description">
+                  {{ item.area }}
+                </div>
+                <div class="extra">
+                  {% for cate in item.cates %}
+                  <div class="ui label">
+                    {{ cate }}
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui small pagination menu">
+            {% if ArtiInfo.has_previous %}
+                <a class="icon item" href="?page={{ ArtiInfo.previous_page_number }}">
+                  <i class="left arrow icon"></i>
+                </a>
+            {% endif %}
+            <div class="disabled item"> {{ ArtiInfo.number }} of {{ ArtiInfo.paginator.num_pages }} </div>
+            {% if ArtiInfo.has_next %}
+                <a class="icon item" href="?page={{ ArtiInfo.next_page_number }}">
+                    <i class="right arrow icon"></i>
+                </a>
+            {% endif %}
+            </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>
+      Do not put label here!
+    </title>
+    <link rel="stylesheet" href="css/semantic.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/semantic.js"></script>
+    <script src="js/exporting.js"></script>
+    <script src="js/highcharts.js"></script>
+    <script src="js/highcharts-more.js"></script>
+
+    </script>
+  </head>
+
+  <body>
+    <div class="ui thin visible left sidebar inverted vertical menu">
+      <div class="header item">
+        <img src="images/logo2.png">
+      </div>
+      <div class="item">
+        Doucument
+        <i class="browser icon"></i>
+      </div>
+      <div class="item">
+        Charts
+        <i class="bar chart icon"></i>
+      </div>
+      <div class="item">
+        Others
+        <i class="idea icon"></i>
+      </div>
+    </div>
+
+    <div class="pusher">
+      <div class="ui menu">
+        <div class="header item" id="menu">
+          Menu
+          <i class="content icon"></i>
+        </div>
+        <div class="item">
+          About us
+        </div>
+        <div class="item">
+          Location
+        </div>
+        <div class="item">
+          Others
+        </div>
+      </div>
+      <div class="ui equal width grid" style="margin:5px 0 5px 0;width:70%" >
+        <div class="row">
+          <div class="column">
+            <div class="ui red segment">
+              <div class="ui statistic">
+                <div class="value">
+                  50,000
+                </div>
+                <div class="label">
+                  Documents
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="ui blue segment">
+              <div class="ui statistic">
+                <div class="value">
+                  2,000
+                </div>
+                <div class="label">
+                  Views
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="column">
+            <div class="ui container segment">
+              <div class="ui divided items">
+                <div class="item">
+                  <div class="content">
+                    <a class="header">
+                      Title
+                    </a>
+                    <div class="description">
+                      Say something
+                    </div>
+                    <div class="extra">
+                      <div class="ui label">
+                        tag1
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui divider"></div>
+      <div class="ui equal width grid" style="margin:5px 0 5px 0;width:70%">
+        <div class="row">
+          <div class="column">
+            <div class="ui container segment">
+              <div class="ui compact menu">
+                <div class="ui simple dropdown item">
+                  Area
+                  <i class="dropdown icon"></i>
+                  <div class="menu">
+                    <div class="item" id="CY">朝阳</div>
+                    <div class="item" id="HD">海淀</div>
+                    <div class="item" id="TZ">通州</div>
+                  </div>
+                </div>
+              </div>
+              <div class="ui container" id="chart1"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <script>
+    $('#menu').click(function () {
+      $('.ui.sidebar').sidebar('toggle');
+    });
+    </script>
+    <script>
+        $('#CY').click(function () {
+          $('#chart1').highcharts({
+            chart: {
+                type: 'bar'
+            },
+            credits:{
+                enabled:false
+            },
+            title: {
+                text: 'Fruit Consumption'
+            },
+            xAxis: {
+                categories: ['Apples', 'Bananas', 'Oranges']
+            },
+            yAxis: {
+                title: {
+                    text: 'Fruit eaten'
+                }
+            },
+            series: [{
+                name: 'Jane',
+                data: [5, 7, 3]
+            }, {
+                name: 'John',
+                data: [5, 7, 3]
+            }]
+        });
+    });
+    </script>
+    <script>
+        $('#TZ').click(function () {
+          $('#chart1').highcharts({
+            chart: {
+                type: 'bar'
+            },
+            credits:{
+                enabled:false
+            },
+            title: {
+                text: 'Fruit Consumption'
+            },
+            xAxis: {
+                categories: ['Apples', 'Bananas', 'Oranges']
+            },
+            yAxis: {
+                title: {
+                    text: 'Fruit eaten'
+                }
+            },
+            series: [{
+                name: 'Jane',
+                data: [5, 7, 3]
+            }, {
+                name: 'John',
+                data: [5, 7, 3]
+            }]
+        });
+    });
+    </script>
+    <script>
+        $('#HD').click(function () {
+          $('#chart1').highcharts({
+            chart: {
+                type: 'bar'
+            },
+            credits:{
+                enabled:false
+            },
+            title: {
+                text: 'Fruit Consumption'
+            },
+            xAxis: {
+                categories: ['Apples', 'Bananas', 'Oranges']
+            },
+            yAxis: {
+                title: {
+                    text: 'Fruit eaten'
+                }
+            },
+            series: [{
+                name: 'Jane',
+                data: [5, 7, 3]
+            }, {
+                name: 'John',
+                data: [5, 7, 3]
+            }]
+        });
+    });
+    </script>
+  </body>
+</html>
