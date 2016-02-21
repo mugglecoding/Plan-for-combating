@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 
-with open('Desktop/12/index.html', 'r') as wb_data: # 使用with open打开本地文件,需替换成自己的路径.关于路径怎么获取,windows可在资源管理器查看,mac可以把文件拖拽到终端内查看
+with open('index.html', 'r') as wb_data:# 使用with open打开本地文件,需替换成自己的路径.关于路径怎么获取,windows可在资源管理器查看,mac可以把文件拖拽到终端内查看
     soup = BeautifulSoup(wb_data, 'lxml') # 解析网页内容
     # print(wb_data)
 
@@ -20,7 +20,7 @@ for title, image, review, price, star in zip(titles, images, reviews, prices, st
         'review': review.get_text(),
         'price': price.get_text(),
         'star': len(star.find_all("span", class_='glyphicon glyphicon-star'))
-        # 观察发现,每一个星星会有一次<span class="glyphicon glyphicon-star"></span>,所以我们统计有多少次,就知道有多少个星星了;
+        # 观察发现,每一个星星会有一次<span class="glyphicon glyphicon-star"></span>,所以我们统计有多少次,就发现规律了知道有多少个星星了;
         # 使用find_all 统计有几处是★的样式,第一个参数定位标签名,第二个参数定位css 样式,具体可以参考BeautifulSoup 文档示例http://www.crummy.com/software/BeautifulSoup/bs4/doc.zh/#find-all;
         # 由于find_all()返回的结果是列表,我们再使用len()方法去计算列表中的元素个数,也就是星星的数量
     }
