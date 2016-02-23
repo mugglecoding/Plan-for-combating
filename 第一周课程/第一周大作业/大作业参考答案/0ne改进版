@@ -1,0 +1,40 @@
+from bs4 import BeautifulSoup
+import requests
+
+url= 'http://bj.58.com/pingbandiannao/25096209868487x.shtml'
+
+def get_info(who_sells=0):
+    urls = get_urls(who_sells)
+    for i in urls:
+        web_data = requests.get(i)
+        soup =BeautifulSoup(web_data.text,'lxml')
+        # print(soup)
+        data ={
+            'title':soup.title.text,
+            'price':soup.select('.price')[0].text,
+            'date' :soup.select('.time')[0].text,
+            'area' :list(soup.select('.c_25d')[0].stripped_strings) if soup.find_all('span','c_25d') else None,
+            'cate' :'个人' if who_sells ==0 else '商家',
+            'view' :get_view(i)
+        }
+        print(data)
+def get_urls(who_sells):   #获取url
+    urls=[]
+    list_view = 'http://bj.58.com/pbdn/{}/pn2/'.format(str(who_sells))
+    web_data = requests.get(list_view)
+    soup = BeautifulSoup(web_data.text,'lxml')
+    for link in soup.select('td.t a.t'):
+        link = link.get('href').split('?')[0]
+        if str(link).endswith('x.shtml'):
+            urls.append(link)
+        else:
+            continue
+    return urls
+
+def get_view(url):  #获取浏览量
+    id = url.split('/')[-1].strip('x.shtml')
+    url_view = 'http://jst1.58.com/counter?infoid={}'.format(id)
+    web_data = requests.get(url_view)
+    web_data = web_data.text.split('=')[-1]
+    return web_data
+get_info()

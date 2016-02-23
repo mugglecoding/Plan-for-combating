@@ -1,0 +1,83 @@
+from bs4 import BeautifulSoup
+import requests,time
+from functools import reduce
+                                        #第一周作业    by myself
+url_shouji=[] # 存放详情页url
+#收集详情页的url
+url = 'http://bj.58.com/pbdn/0/pn1'
+#详情页
+url_xiangqing = 'http://bj.58.com/pingbandiannao/25096209868487x.shtml?psid=122302821190860851177949351&entinfo=25096209868487_0&iuType=z_0&PGTID=0d305a36-0000-1d01-b0d5-0ac11567eaae&ClickID=1&adtype=3'
+def xiangqing(url_xiangqing=url_xiangqing,data=None):
+    infoid = url_xiangqing.split('/')[4][:14]  #获取infoid 的值
+    url_liulan='http://jst1.58.com/counter?infoid={}&userid=&uname=&sid=509408942&lid=1&px=&cfpath=5,38484'.format(infoid) #浏览值得request
+    web_data = requests.get(url_xiangqing) #详情页响应
+    web_data2 = requests.get(url_liulan)  #浏览值响应
+    time.sleep(2)
+    soup = BeautifulSoup(web_data.text,'lxml')
+    liulanliang = str(BeautifulSoup(web_data2.text,'lxml')).split('=')[2].split('<')[0] #浏览量
+    leimus = soup.select('#header > div.breadCrumb.f12 > span > a')[-1].get_text()
+    titles = soup.select('div.per_ad_left > div.col_sub.mainTitle > h1')
+    times = soup.select('ul.mtit_con_left.fl > li.time')
+    jiages = soup.select(' div.per_ad_left > div.col_sub.sumary > ul > li > div.su_con > span')[0].get_text()
+    address = soup.select('div.per_ad_left > div.col_sub.sumary > ul > li > div.su_con > span')
+    if len(address) == 4 :
+        address = None
+    elif len(address) == 2:
+        address = None
+    elif len(address) == 3:
+        address = address[2].get_text().split()[0]+address[2].get_text().split()[1]+address[2].get_text().split()[2]
+    elif len(address) == 5:
+        if len(address[2].get_text().split())==1:
+            address = address[2].get_text().split()[0]
+        else:
+            address = address[2].get_text().split()[0]+address[2].get_text().split()[1]+address[2].get_text().split()[2]
+    else:
+        address = reduce(lambda x,y:x+y,address)
+    chengses = soup.select(' div.per_ad_left > div.col_sub.sumary > ul > li > div.su_con > span')
+    chengses = chengses[1].get_text().strip() #成色
+    # print(chengses,type(chengses))
+
+    for title,shijian in zip(titles,times):
+        data = {
+            'leimu':leimus,
+            'title':title.get_text(),
+            'shijian':shijian.get_text(),
+            'jiage':jiages,
+            'addresss':address,
+            'chengse':chengses,
+            'liulan':liulanliang
+        }
+        print(data)
+
+def shouji(x,y):
+    for i in range(x,y+1):
+        url2=url[:-2]+str(i)
+        web_data= requests.get(url2)
+        time.sleep(2)
+        soup =BeautifulSoup(web_data.text,'lxml')
+        urls2 = soup.select('table.tbimg')
+        for i in urls2:
+            shaixuan = str(i.find_all('a'))
+            if "level2" in shaixuan:
+                continue
+            elif '转转' in shaixuan:
+                continue
+            elif len(shaixuan)==2:
+                continue
+            else:
+                shaixuan = shaixuan.split('"')[1]
+                url_shouji.append(shaixuan)
+    return url_shouji
+# print(urls2[0],urls2[1],len(urls2),sep='\n--------------\n')
+# xiangqing(url_xiangqing='http://bj.58.com/pingbandiannao/25113450022731x.shtml?psid=131358047190867672352403657&amp;entinfo=25113450022731_0')
+# xiangqing()
+url_shouji=shouji(3,6)
+print(len(url_shouji))
+# print(len(url_shouji[0]),len(url_shouji[1]),len(url_shouji[2]),len(url_shouji[3]))
+
+for x in url_shouji:
+    if len(x)!=115:
+        continue
+    else:
+        print(x)
+        xiangqing(url_xiangqing=x)
