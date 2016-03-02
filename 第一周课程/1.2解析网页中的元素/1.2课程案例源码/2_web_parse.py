@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 
 data = []
-path = '/new_index.html'
+path = 'web/new_index.html'
 
 with open(path, 'r') as f:
     Soup = BeautifulSoup(f.read(), 'lxml')
@@ -22,5 +22,5 @@ for title, pic, desc, rate, cate in zip(titles, pics, descs, rates, cates):
     data.append(info)
 
 for i in data:
-    if len(i['rate']) >= 3:
+    if float(i['rate']) > 3:
         print(i['title'], i['cate'])
