@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="{% static 'css/semantic.css' %}" >
+  </head>
+  <body>
+    <div class="ui visible left thin sidebar inverted vertical menu">
+      <div class="item">
+        <img src="{% static 'images/logo2.png' %}"/>
+      </div>
+      <div class="item">
+        Doucuments
+        <i class="browser icon"></i>
+      </div>
+      <div class="item">
+        Charts
+        <i class="bar chart icon"></i>
+      </div>
+      <div class="item">
+        Others
+        <i class="idea icon"></i>
+      </div>
+    </div>
+      <div class="pusher">
+        <div class="ui top attached menu">
+          <div class="header item" id="menu">
+            <i class="content icon"></i>
+            Menu
+          </div>
+          <div class="item">data analysis</div>
+          <div class="item">The lab</div>
+          <div class="item">data</div>
+        </div>
+        <div class="ui container" style="margin:70px 0 0 0">
+          <div class="ui divided items">
+              {% for item in ArtiInfo %}
+                <div class="item">
+                  <div class="content">
+                    <a class="header">{{ item.title }}</a>
+                    <div class="meta">
+                        {% for tag in item.tags %}
+                            <span class="ui label"> {{ tag }} </span>
+                        {% endfor %}
+                    </div>
+                    <div class="description">{{ item.des }}</div>
+                  </div>
+                </div>
+              {% endfor %}
+          </div>
+            <div class="ui small pagination menu">
+            {% if ArtiInfo.has_previous %}
+                <a class="icon item" href="?page={{ ArtiInfo.previous_page_number }}">
+                  <i class="left arrow icon"></i>
+                </a>
+            {% endif %}
+            <div class="disabled item"> {{ ArtiInfo.number }} of {{ ArtiInfo.paginator.num_pages }} </div>
+            {% if ArtiInfo.has_next %}
+                <a class="icon item" href="?page={{ ArtiInfo.next_page_number }}">
+                    <i class="right arrow icon"></i>
+                </a>
+            {% endif %}
+            </div>
+        </div>
+
+    </div>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/semantic.js' %}"></script>
+    <script>
+      $('.ui.sidebar').sidebar('is visible')
+    </script>
+{#    <script>#}
+{#      $('#menu').click(function () {#}
+{#        $('.ui.sidebar').sidebar('toggle');#}
+{#      });#}
+{#    </script>#}
+  </body>
+</html>
