@@ -1,7 +1,11 @@
 from bs4 import BeautifulSoup
 
 data = []
+<<<<<<< HEAD:第一周课程/1.2解析网页中的元素/1.2课程案例源码/2_web_parse.py
+path = 'web/new_index.html'
+=======
 path = './web/new_index.html'
+>>>>>>> mugglecoding/master:week1/1_2/1_2code_of_video/2_web_parse.py
 
 with open(path, 'r') as f:
     Soup = BeautifulSoup(f.read(), 'lxml')
@@ -22,5 +26,5 @@ for title, pic, desc, rate, cate in zip(titles, pics, descs, rates, cates):
     data.append(info)
 
 for i in data:
-    if len(i['rate']) >= 3:
+    if float(i['rate']) > 3:
         print(i['title'], i['cate'])
