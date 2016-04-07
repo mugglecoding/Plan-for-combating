@@ -1,10 +1,12 @@
-from bs4 import BeautifulSoup
-import requests
+#!/usr/bin/env python
+#-*- coding: utf-8 -*-
 
+import requests
+from bs4 import BeautifulSoup
 
 url = 'http://bj.xiaozhu.com/fangzi/1508951935.html'
 wb_data = requests.get(url)
-soup = BeautifulSoup(wb_data.text,'lxml')
+soup = BeautifulSoup(wb_data.text, 'html5lib')
 
 
 # 因为是单页面，使用 select 方法获得的元素又是一个列表，那么列表中的第一个元素且也是唯一一个元素即是我们要找的信息 用 “[0]” 索引将其取出
@@ -31,9 +33,9 @@ print(host_gender)
 # 根据结果观察不同性别会用不同的图标样式（class），设计一个函数进行转换
 def print_gender(class_name):
     if class_name == 'member_ico1':
-        return '女'
+        return u'女'
     if class_name == 'member_ico':
-        return '男'
+        return u'男'
 
 
 data = {
@@ -55,10 +57,10 @@ print(data)
 page_link = [] # <- 每个详情页的链接都存在这里，解析详情的时候就遍历这个列表然后访问就好啦~
 
 def get_page_link(page_number):
-    for each_number in range(1,page_number): # 每页24个链接,这里输入的是页码
+    for each_number in range(1, page_number): # 每页24个链接,这里输入的是页码
         full_url = 'http://bj.xiaozhu.com/search-duanzufang-p{}-0/'.format(each_number)
         wb_data = requests.get(full_url)
-        soup = BeautifulSoup(wb_data.text,'lxml')
+        soup = BeautifulSoup(wb_data.text, 'lxml')
         for link in soup.select('a.resule_img_a'): # 找到这个 class 样为resule_img_a 的 a 标签即可
             page_link.append(link)
 
