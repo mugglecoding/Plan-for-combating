@@ -22,13 +22,13 @@ host_name = soup.select('a.lorder_name')[0].text
 host_gender = soup.select('div.member_pic > div')[0].get('class')[0]
 
 # 请在此处打印并观察结果
-print(title)
-print(address)
-print(price)
-print(pic)
-
-print(host_name)
-print(host_gender)
+# print(title)
+# print(address)
+# print(price)
+# print(pic)
+#
+# print(host_name)
+# print(host_gender)
 
 # 根据结果观察不同性别会用不同的图标样式（class），设计一个函数进行转换
 def print_gender(class_name):
@@ -36,6 +36,7 @@ def print_gender(class_name):
         return u'女'
     if class_name == 'member_ico':
         return u'男'
+
 
 
 data = {
@@ -54,7 +55,8 @@ print(data)
 # -------------------补充------------------
 # 如何批量获取链接
 
-page_link = [] # <- 每个详情页的链接都存在这里，解析详情的时候就遍历这个列表然后访问就好啦~
+page_link = []
+# <- 每个详情页的链接都存在这里，解析详情的时候就遍历这个列表然后访问就好啦~
 
 def get_page_link(page_number):
     for each_number in range(1, page_number): # 每页24个链接,这里输入的是页码
@@ -63,5 +65,7 @@ def get_page_link(page_number):
         soup = BeautifulSoup(wb_data.text, 'lxml')
         for link in soup.select('a.resule_img_a'): # 找到这个 class 样为resule_img_a 的 a 标签即可
             page_link.append(link)
+
+get_page_link(20)
 
 # ---------------------
