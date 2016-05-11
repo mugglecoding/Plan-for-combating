@@ -37,11 +37,8 @@ def get_links_from(channel, pages, who_sells='o'):
         for link in soup.select('.fenlei dt a'):
             item_link = link.get('href')
             url_list.insert_one({'url': item_link})
+            get_item_info_from(item_link)
             print(item_link)
-            # return urls
-    else:
-        # It's the last page !
-        pass
 
 # spider 2
 def get_item_info_from(url,data=None):
@@ -59,6 +56,4 @@ def get_item_info_from(url,data=None):
             'url':url
         }
         print(data)
-        # item_info.insert_one(data)
-
-get_item_info_from('http://bj.ganji.com/ershoubijibendiannao/1927955773x.htm')
+        item_info.insert_one(data)
