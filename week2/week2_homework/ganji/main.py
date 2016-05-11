@@ -8,9 +8,9 @@ x = set(db_urls)
 y = set(index_urls)
 rest_of_urls = x-y
 
-# def get_all_links_from(channel):
-#     for i in range(1,100):
-#         get_links_from(channel,i)
+def get_all_links_from(channel):
+     for i in range(1,100):
+         get_links_from(channel,i)
 
 
 if __name__ == '__main__':
