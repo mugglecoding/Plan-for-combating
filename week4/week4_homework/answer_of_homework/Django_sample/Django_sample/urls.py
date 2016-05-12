@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^index/', index),
     url(r'^chart/', chart),
+    url(r'^/$', index),
 ]
 
 # ?page=1
