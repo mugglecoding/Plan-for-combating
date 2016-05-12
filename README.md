@@ -7,3 +7,10 @@
 5. 需要按时提交作业，逼自己一把，deadline 是第一生产力。
 
 课程地址：http://study.163.com/course/courseMain.htm?courseId=1002794001#/courseDetail
+
+---
+# 常见问题解答整理
+
+在学习的过程中，同学们会遇到各种常见的问题，涉及基础语法，编程逻辑，环境配置等等，老师都进行了解答，并都统一整理到GitBook上面，同学们可以前往阅读。
+
+GitBook地址：[https://ajkipper.gitbooks.io/mugglecoding-questions/content/](https://ajkipper.gitbooks.io/mugglecoding-questions/content/)
