@@ -5,18 +5,14 @@ from bs4 import BeautifulSoup
 import requests
 import time
 
-url = 'http://bj.58.com/pingbandiannao/24604629984324x.shtml'
-
-wb_data = requests.get(url)
-soup = BeautifulSoup(wb_data.text,'lxml')
-
 def get_links_from(who_sells):
     urls = []
-    list_view = 'http://bj.58.com/pbdn/{}/pn2/'.format(str(who_sells))
-    wb_data = requests.get(list_view)
-    soup = BeautifulSoup(wb_data.text,'lxml')
-    for link in soup.select('td.t a.t'):
-        urls.append(link.get('href').split('?')[0])
+    url = 'http://bj.58.com/pbdn/{}/pn2/'.format(who_sells)
+    wb_data = requests.get(url)
+    if wb_data.status_code == 200:
+        soup = BeautifulSoup(wb_data.text, 'lxml')
+        for link in soup.select('td.t a.t'):
+            urls.append(link.get('href'))
     return urls
 
 
@@ -39,7 +35,7 @@ def get_views_from(url):
         'Cache-Control': 'max-age=0',
         'Connection': 'keep-alive',
         'Host':'jst1.58.com',
-        'Referer':r'http://bj.58.com/pingbandiannao/{}x.shtml'.format(str(info_id))
+        'Referer':r'http://bj.58.com/pingbandiannao/{}x.shtml'.format(info_id)
     }
     r = requests.get(api, headers=headers)
     # 判断状态码，检查是否被网站封ip
@@ -56,7 +52,7 @@ def get_item_info(who_sells=0):
         if wb_data.status_code != 200:
             continue
         
-        soup = BeautifulSoup(wb_data.text,'lxml')
+        soup = BeautifulSoup(wb_data.text, 'lxml')
         
         prices = soup.select('.price')
         areas = soup.select('.c_25d')
