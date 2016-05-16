@@ -64,7 +64,7 @@ for number in range(1, 301):
 
     # 从列表页面提取详细信息的链接
     soup = BeautifulSoup(r.text, 'html.parser')
-    divs = soup.select("#page_list > ul > li > div.result_btm_con.lodgeunitname")    
-    for div in divs:
-        url = div.get("detailurl")
+    div_tags = soup.select("#page_list > ul > li > div.result_btm_con.lodgeunitname")    
+    for div_tag in div_tags:
+        url = div_tag.get("detailurl")
         get_fangzi_info(url)
