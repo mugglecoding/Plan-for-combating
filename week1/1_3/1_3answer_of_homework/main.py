@@ -11,7 +11,7 @@ def get_lorder_sex(class_name):
 
     return u'男'
 
-def get_fangzi_info(url):
+def get_detail_info(url):
     r = requests.get(url)
 
     # 检查网页是否存在，存在则状态码为200
@@ -67,4 +67,4 @@ for number in range(1, 301):
     div_tags = soup.select("#page_list > ul > li > div.result_btm_con.lodgeunitname")    
     for div_tag in div_tags:
         url = div_tag.get("detailurl")
-        get_fangzi_info(url)
+        get_detail_info(url)
