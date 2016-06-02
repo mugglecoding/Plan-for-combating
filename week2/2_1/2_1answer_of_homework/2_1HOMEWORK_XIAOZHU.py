@@ -1,48 +1,43 @@
+#!/usr/bin/env python
+#-*- coding: utf-8 -*-
+
 import requests
-from bs4 import BeautifulSoup
 import pymongo
+from bs4 import BeautifulSoup
 
-
-client = pymongo.MongoClient('localhost',27017)
+client = pymongo.MongoClient('localhost', 27017)
 xiaozhu = client['xiaozhu']
-bnb_info = xiaozhu['bnb_info']
-
-# ====================================================== <<<< 单页行为 >>>> =============================================
-
-url = 'http://bj.xiaozhu.com/search-duanzufang-p20-0/'
-wb_data = requests.get(url)
-soup = BeautifulSoup(wb_data.text,'lxml')
-titles = soup.select('span.result_title')
-prices = soup.select('span.result_price > i')
-
-for title, price in zip(titles,prices):
-    data = {
-        'title':title.get_text(),
-        'price':int(price.get_text())
-    }
-    bnb_info.insert_one(data)
-print('Done')
-
-# ====================================================== <<<< 设计函数 >>>> =============================================
-
-def get_page_within(pages):
-    for page_num in range(1,pages+1):
-        wb_data = requests.get('http://bj.xiaozhu.com/search-duanzufang-p{}-0/'.format(page_num))
-        soup = BeautifulSoup(wb_data.text,'lxml')
-        titles = soup.select('span.result_title')
-        prices = soup.select('span.result_price > i')
-        for title, price in zip(titles,prices):
-            data = {
-                'title':title.get_text(),
-                'price':int(price.get_text())
-            }
-            bnb_info.insert_one(data)
-    print('Done')
-
-# get_page_within(3) 获取前三页面得数据
+fangzi = xiaozhu['fangzi']
 
 
-# 从数据库中进行筛选
-# for i in bnb_info.find():
-#     if i['price'] >= 500:
-#         print(i)
+def insert_fangzi_info(url):
+    # 请求列表页面，获取页面数据
+    wb_data = requests.get(url)
+
+    # 开始解析数据，采用lxml解析引擎
+    soup = BeautifulSoup(wb_data.text, 'lxml')
+
+    # Chrome浏览器打开网页，把鼠标放到标题和价格信息上，右键，审查元素（检查元素），Copy Css Path，去掉:nth-child()
+    titles = soup.select('span.result_title')
+    prices = soup.select('span.result_price > i')
+
+    # 通过for取出列表中的标签，然后通过get_text()获取标签内的文本
+    for title, price in zip(titles, prices):
+        # price.get_text() 得到的是字符串，需要int()函数转成数字类型
+        info = {
+            'title': title.get_text(),
+            'price': int(price.get_text())
+        }
+        fangzi.insert_one(info)
+
+
+def find_fangzi():
+    # 从xiaozhu数据库的fangzi表，查询所有数据，用find()函数
+    for info in fangzi.find():
+        # info 我们插入的数据都有title和price，我们取出每条信息的price，用来比较
+        if info['price'] >= 500:
+            print(info)
+
+urls = ['http://bj.xiaozhu.com/search-duanzufang-p{}-0/'.format(number) for number in range(1, 4)]
+for single_url in urls:
+    insert_fangzi_info(single_url)
