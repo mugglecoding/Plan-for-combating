@@ -1,12 +1,17 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-import requests
 import pymongo
+import requests
 from bs4 import BeautifulSoup
 
+# 连接MongoDB，数据库地址为:localhost。端口号为: 27017
 client = pymongo.MongoClient('localhost', 27017)
+
+# 从MongoDB中选择名称为 xiaozhu 的数据库
 xiaozhu = client['xiaozhu']
+
+# 从 xiaozhu 数据库选择名称为 fangzi 的表
 fangzi = xiaozhu['fangzi']
 
 
@@ -38,6 +43,10 @@ def find_fangzi():
         if info['price'] >= 500:
             print(info)
 
+# 根据规律，生成3个列表页面链接
 urls = ['http://bj.xiaozhu.com/search-duanzufang-p{}-0/'.format(number) for number in range(1, 4)]
+
+# 从链接列表中，用for一个个取出来
 for single_url in urls:
+    # 把得到的列表页面链接，传给函数，这个函数提取房子的标题和价格
     insert_fangzi_info(single_url)
