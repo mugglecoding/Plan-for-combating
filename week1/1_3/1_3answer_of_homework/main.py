@@ -4,16 +4,15 @@
 import requests
 from bs4 import BeautifulSoup
 
-# 根据结果观察不同性别会用不同的图标样式（class），设计一个函数进行转换
+# 性别不同，标签的class属性内容不同，通过这个差异区分房东性别
 def get_lorder_sex(class_name):
     if class_name == ['member_ico']:
         return '男'
     else:
         return '女'
 
-
-def get_links(single_url):
-    wb_data = requests.get(single_url)
+def get_links(url):
+    wb_data = requests.get(url)
 
     # 开始解析网页数据
     soup = BeautifulSoup(wb_data.text, 'lxml')

@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 import pymongo
 
 # 连接MongoDB，数据库地址为:localhost。端口号为: 27017
+# 注意MoongoClient大小写，不要写成mongoclient
 client = pymongo.MongoClient('localhost', 27017)
 
 # 从MongoDB中选择名称为 tongcheng 的数据库
@@ -39,6 +40,7 @@ def get_shoujihao():
                 'link': link.get('href')
             }
             shoujihao.insert_one(data)
+            print(data)
     print('Done')
 
 
