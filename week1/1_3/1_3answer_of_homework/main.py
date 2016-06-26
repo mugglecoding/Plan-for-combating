@@ -6,9 +6,9 @@ from bs4 import BeautifulSoup
 
 # 性别不同，标签的class属性内容不同，通过这个差异区分房东性别
 def get_lorder_sex(class_name):
-    if class_name == ['member_ico']:
+    if class_name == ['member_boy_ico']:
         return '男'
-    else:
+    elif class_name == ['member_girl_ico']:
         return '女'
 
 def get_links(url):
