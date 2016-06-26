@@ -12,13 +12,13 @@ path = './index.html'
 with open(path, 'r') as wb_data:
     content = wb_data.read()
 
-    soup = BeautifulSoup(content, "html5lib")
+    soup = BeautifulSoup(content, "lxml")
     
     titles = soup.select("body > div > div > div.col-md-9 > div > div > div > div.caption > h4 > a")
     images = soup.select("body > div > div > div.col-md-9 > div > div > div > img")
     reviews = soup.select("body > div > div > div.col-md-9 > div > div > div > div.ratings > p.pull-right")
     prices = soup.select("body > div > div > div.col-md-9 > div > div > div > div.caption > h4.pull-right")
-    stars = soup.select("body > div > div > div.col-md-9 > div > div > div > div.ratings > p > span")
+    stars = soup.select("div > div.ratings > p:nth-of-type(2)")
 
     print(len(titles), len(images), len(reviews), len(prices), len(stars))
     for title, image, review, price, star in zip(titles, images, reviews, prices, stars):
@@ -26,7 +26,7 @@ with open(path, 'r') as wb_data:
         review_content = review.get_text()
         price_content = price.get_text()
         image_content = image.get("src")
-        stars_count = len(star)
+        stars_count = len(star.find_all("span","glyphicon glyphicon-star"))
 
         data = {
             "title": title_content,
