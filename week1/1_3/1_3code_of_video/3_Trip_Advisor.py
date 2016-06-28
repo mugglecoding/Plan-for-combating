@@ -19,7 +19,6 @@ def get_attractions(url,data=None):
     titles    = soup.select('div.property_title > a[target="_blank"]')
     imgs      = soup.select('img[width="160"]')
     cates     = soup.select('div.p13n_reasoning_v2')
-
     if data == None:
         for title,img,cate in zip(titles,imgs,cates):
             data = {
@@ -32,17 +31,18 @@ def get_attractions(url,data=None):
 
 def get_favs(url,data=None):
     wb_data = requests.get(url,headers=headers)
+    print(wb_data)
     soup      = BeautifulSoup(wb_data.text,'lxml')
-    titles    = soup.select('a.location-name')
-    imgs      = soup.select('div.photo > div.sizedThumb > img.photo_image')
-    metas = soup.select('span.format_address')
-
+    titles    = soup.select("div.title.titleLLR > div")
+    imgs      = soup.find_all("div", "missing lazyMiss")
+    metas     = soup.select('div.attraction_types > span')
+    
     if data == None:
         for title,img,meta in zip(titles,imgs,metas):
             data = {
-                'title'  :title.get_text(),
-                'img'    :img.get('src'),
-                'meta'   :list(meta.stripped_strings)
+                'title'  :title.get_text().strip(),
+                'img'    :img.get('data-thumburl'),
+                'meta'   :meta.get_text()
             }
             print(data)
 
