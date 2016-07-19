@@ -40,7 +40,7 @@ def get_views_from(url):
     r = requests.get(api, headers=headers)
     # 判断状态码，检查是否被网站封ip
     if r.status_code == 200:
-        return js.text.split('=')[-1]
+        return r.text.split('=')[-1]
     return 0
 
 
