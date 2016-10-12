@@ -17,7 +17,7 @@ with open('Desktop/12/index.html', 'r') as web_data:
     grades = []  # 设置一个空列表
     while len(grades_crawler) != 0:  # 循环条件长度不为0
         e = grades_crawler[0:5]  # 提取星星描述前五个元素，也就是一个商品的星级
-        grades.insert(1, e)  # 把这五个商品星级的列表作为一个元素插入grades列表中
+        grades.append(e)  # 把这五个商品星级的列表作为一个元素插入grades列表中
         del grades_crawler[0:5]  # 删除抓取到的描述列表的前五位
 
 for title, image, review, price, grade in zip(titles, images, reviews, prices, grades):
