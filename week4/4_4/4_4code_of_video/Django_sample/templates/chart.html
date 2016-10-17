@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block pusher %}
+<div class="pusher">
+  <div class="ui menu">
+    <div class="header item" id="menu">
+      Menu
+      <i class="content icon"></i>
+    </div>
+    <div class="item">
+      About us
+    </div>
+    <div class="item">
+      Location
+    </div>
+    <div class="item">
+      Others
+    </div>
+  </div>
+  <div class="ui equal width grid" style="margin:5px 0 5px 0;width:70%" >
+    <div class="row">
+      <div class="column">
+        <div class="ui container segment" >
+          <div class="ui container" id="chart1" style="height:400px"></div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column">
+        <div class="ui container segment" >
+          <div class="ui container" id="chart2" style="height:400px"></div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column">
+        <div class="ui container segment" >
+          <div class="ui container" id="chart" style="height:400px"></div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column">
+        <div class="ui container segment" >
+          <div class="ui container" id="chart" style="height:400px"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    $(function () {
+      $('#chart1').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        credits:{
+            enabled:false
+        },
+        title: {
+            text: 'Fruit Consumption'
+        },
+        xAxis: {
+            categories: ['Apples', 'Bananas', 'Oranges']
+        },
+        yAxis: {
+            title: {
+                text: 'Fruit eaten'
+            }
+        },
+        series: [{
+            name: 'Jane',
+            data: [5, 7, 3]
+        }, {
+            name: 'John',
+            data: [5, 7, 3]
+        }]
+    });
+});
+</script>
+
+
+{% endblock %}

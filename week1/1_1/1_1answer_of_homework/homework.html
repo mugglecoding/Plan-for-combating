@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> <!--head部分,填入给浏览器看的内容(以下文字部分均为注释)-->
+    <meta charset="UTF-8">
+    <title>The blah</title>
+    <link rel="stylesheet" type="text/css" href="homework.css"> <!--引用文件夹中的css样式:homework.css-->
+</head>
+<body> <!--body部分,填入在网页上可见的内容,也就是给人看的内容-->
+    <div class="header"> <!--第一个div,对应header头部部分,使用class=""引用css中对应的样式-->
+        <img src="images/blah.png"> <!--引用logo图片-->
+        <ul class="nav"> <!--使用ul标签构建导航模块,并且引用导航样式-->
+            <li><a href="#">Home</a></li>  <!--使用三个li标签套嵌a标签,创建3个带链接的导航栏-->
+            <li><a href="#">Site</a></li>
+            <li><a href="#">Other</a></li>
+        </ul>
+    </div>
+    <div class="main-content"> <!--第二个div,对应content内容部分-->
+        <h2>The Beach</h2>  <!--使用h2标签实现标题样式-->
+        <hr>  <!--使用hr标签实现水平分割线,需要注意的是这个标签比较特殊,在html中只有开始标签<hr>,没有结束标签</hr>-->
+        <ul class="photos"> <!--使用ul标签构建图片模块,并且引用图片样式-->
+            <li><img src="images/0001.jpg" width="150" height="150" alt="Pic1"></li> <!--使用三个li标签套嵌img标签,创建3个并列的图片,图片限定了宽高;alt是 img标签的属性,是图片的文字提示-->
+            <li><img src="images/0003.jpg" width="150" height="150" alt="Pic2"></li>
+            <li><img src="images/0004.jpg" width="150" height="150" alt="Pic3"></li>
+        </ul>
+        <p> <!--p标签实现一段文字的效果-->
+            stretching from Solta to Mljet, and this unique cycling trip captures the highlights with an ideal
+            balance of activity, culture and relaxation. Experience the beautiful island of Korcula with its picturesque old town,
+            the untouched beauty of Vis, and trendy Hvar with its Venetian architecture. In the company of a cycling guide,
+            this stimulating journey explores towns and landscapes, many of which are on UNESCO's world heritage list.
+            Aboard the comfortably appointed wooden motor yacht,
+            there is ample time between cycles to swim in the azure waters and soak up the ambience of seaside towns.
+        </p>
+
+
+    </div>
+    <div class="footer">  <!--第三个div,对应footer页脚部分-->
+        <p>&copy; Mugglecoding</p> <!--&copy;是©的固定写法-->
+    </div>
+</body>
+</html>

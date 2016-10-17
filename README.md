@@ -1,11 +1,16 @@
-# Github 协作的简易指南
+# 实战计划生存法则
 
-首先，每个实战计划的同学都需要 Fork 这个项目，然后你可以做这2件事情：
+1. 编程是一个 learning by doing 的技能，当你能够完成这道练习题，你才真正学会了这节课的知识点；
+2. 如果做练习的过程中遇到困难，善用搜索找答案；
+3. 初学者都不爱看文档，可是文档很重要。所以我们的一些题目会引导你去看文档，当做字典去查阅就好；
+4. 我们提供了练习题参考答案，不过最好在独立完成之后，再对照答案；
+5. 需要按时提交作业，逼自己一把，deadline 是第一生产力。
 
-## 看源码
-- 可以在「课程案例」、「练习题答案」看到源码，模仿学习
+课程地址：http://study.163.com/course/courseMain.htm?courseId=1002794001#/courseDetail
 
-## 交作业
-- 在 Github客户端把项目 clone 到本地，创建以你姓名全拼命名的分支（branch）
-- 在本地找到相应的「作业提交」的文件夹中，并在里面建一个以你的姓名全拼命名的文件夹，把你的作业放进去
-- 到 Github 客户端，从你的分支提交代码到 master，并且同步，然后 pull request(详细的图文步骤看课程里面的Github协作指南)。成功提交之后你自己也能看到pull 的链接。
+---
+# 常见问题解答整理
+
+在学习的过程中，同学们会遇到各种常见的问题，涉及基础语法，编程逻辑，环境配置等等，老师都进行了解答，并都统一整理到GitBook上面，同学们可以前往阅读。
+
+GitBook地址：[https://ajkipper.gitbooks.io/mugglecoding-questions/content/](https://ajkipper.gitbooks.io/mugglecoding-questions/content/)
